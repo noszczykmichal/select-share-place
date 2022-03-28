@@ -2,7 +2,10 @@ import axios from "axios";
 
 const form = document.querySelector("form") as HTMLFormElement;
 const addressInput = document.getElementById("address") as HTMLInputElement;
-const google_api_key = "AIzaSyBgGzOdA2BltnI27LkoLRD4KdYKOZympqg";
+const google_api_key = "AIzaSyBgGzOdA2BltnI27LkoLRD4KdYKOZympqg"; 
+                        
+// declare var google: any;
+
 type GoogleGeocodingResponse = {
   results: { geometry: { location: { lat: number; lng: number } } }[];
   status: "OK" | "ZERO_RESULTS";
@@ -23,7 +26,13 @@ function searchAddressHandler(event: Event) {
       }
 
       const coordinates = response.data.results[0].geometry.location;
-      console.log(coordinates);
+
+      const map = new google.maps.Map(document.getElementById("map")!, {
+        center: coordinates,
+        zoom: 8,
+      });
+
+      new google.maps.Marker({position: coordinates, map: map});
     })
     .catch((err) => {
       alert(err.message);
