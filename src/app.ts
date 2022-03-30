@@ -2,13 +2,14 @@ import axios from "axios";
 
 const form = document.querySelector("form") as HTMLFormElement;
 const addressInput = document.getElementById("address") as HTMLInputElement;
-const google_api_key = "AIzaSyBgGzOdA2BltnI27LkoLRD4KdYKOZympqg"; 
-                        
+const google_api_key = "AIzaSyC9fPejS2xiHABFO9UFtVOMICSy-BLq1xY"; //if you've cloned this repo remember to paste in your own google api key as this one has limited daily request quota
+//paste the same key at the head section of 'index.html' file.
+     
 // declare var google: any;
 
 type GoogleGeocodingResponse = {
   results: { geometry: { location: { lat: number; lng: number } } }[];
-  status: "OK" | "ZERO_RESULTS";
+  status: "OK" | "ZERO_RESULTS" | "OVER_QUERY_LIMIT";
 };
 function searchAddressHandler(event: Event) {
   event.preventDefault();
@@ -21,8 +22,10 @@ function searchAddressHandler(event: Event) {
       )}&key=${google_api_key}`
     )
     .then((response) => {
-      if (response.data.status !== "OK") {
-        throw new Error("Could not fetch location!");
+      if (response.data.status === "ZERO_RESULTS") {
+        throw new Error("The requested address can not be found");
+      }else if(response.data.status === "OVER_QUERY_LIMIT") {
+        throw new Error("Sorry, but we've exceeded our daily request quota for today");
       }
 
       const coordinates = response.data.results[0].geometry.location;
