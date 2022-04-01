@@ -37,7 +37,8 @@ Running this project locally:
 # Clone this repository
 $ git clone https://github.com/noszczykmichal/select-share-place
 # Run `npm install` in your bash/command line
-# Visit Google Maps Platform (https://console.cloud.google.com/google/maps-apis/start) and get your own API key (you will need a Google Account if you don't have one).
+# Visit Google Maps Platform (https://console.cloud.google.com/google/maps-apis/start) and get your own API key   
+(you will need a Google Account if you don't have one).
 #Create a new project or add to an existing one access to below Google APIs:
 - Geocoding API
 - Maps Embed API
