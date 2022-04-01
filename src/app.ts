@@ -23,7 +23,7 @@ function searchAddressHandler(event: Event) {
     )
     .then((response) => {
       if (response.data.status === "ZERO_RESULTS") {
-        throw new Error("The requested address can not be found");
+        throw new Error("The requested address cannot be found");
       }else if(response.data.status === "OVER_QUERY_LIMIT") {
         throw new Error("Sorry, but we've exceeded our daily request quota for today");
       }
